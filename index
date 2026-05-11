@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabin Crew Preflight Trainer</title>
+
+<style>
+body{
+font-family:Arial;
+background:#eef4fb;
+padding:30px;
+text-align:center;
+}
+
+.card{
+background:white;
+max-width:700px;
+margin:auto;
+padding:30px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+button{
+padding:15px 20px;
+margin:10px;
+border:none;
+border-radius:10px;
+background:#123c69;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+#equipment{
+font-size:80px;
+margin:20px;
+}
+
+#feedback{
+font-size:20px;
+font-weight:bold;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Cabin Crew Preflight Trainer</h1>
+
+<p>Kies het juiste safety item</p>
+
+<div id="equipment">🧯</div>
+
+<h2 id="question">Welke safety equipment zie je?</h2>
+
+<div id="answers"></div>
+
+<div id="feedback"></div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+icon:"🧯",
+correct:"Halon Fire Extinguisher",
+options:[
+"Halon Fire Extinguisher",
+"Portable Oxygen Bottle",
+"PBE",
+"FAK"
+]
+},
+
+{
+icon:"📣",
+correct:"Megafoon",
+options:[
+"Megafoon",
+"ELT",
+"QAL",
+"Medical Kit"
+]
+},
+
+{
+icon:"⚡",
+correct:"AED",
+options:[
+"FAK",
+"AED",
+"PBE",
+"Infant Lifevest"
+]
+},
+
+{
+icon:"🫁",
+correct:"Portable Oxygen Bottle",
+options:[
+"Portable Oxygen Bottle",
+"Halon Fire Extinguisher",
+"QAL",
+"Gloves"
+]
+}
+
+];
+
+let current = 0;
+
+function loadQuestion(){
+
+document.getElementById("equipment").innerHTML =
+questions[current].icon;
+
+document.getElementById("feedback").innerHTML = "";
+
+let html = "";
+
+questions[current].options.forEach(option => {
+
+html += `
+<button onclick="checkAnswer('${option}')">
+${option}
+</button>
+`;
+
+});
+
+document.getElementById("answers").innerHTML = html;
+
+}
+
+function checkAnswer(answer){
+
+if(answer === questions[current].correct){
+
+document.getElementById("feedback").innerHTML =
+"✅ Correct!";
+
+} else {
+
+document.getElementById("feedback").innerHTML =
+"❌ Incorrect";
+
+}
+
+setTimeout(() => {
+
+current++;
+
+if(current >= questions.length){
+current = 0;
+}
+
+loadQuestion();
+
+},1500);
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
